@@ -28,7 +28,14 @@ function startGame() {
 }
 
 function turnClick(square){
-	console.log(square);
+	console.log(square.target.id);
+	turn(square.target.id, humanPlayer);
+}
+
+function turn(squareId, player){
+	console.log(player);
+	originalBoard[squareId] = player;
+	document.getElementById(squareId).innerText = player;
 }
 
 
