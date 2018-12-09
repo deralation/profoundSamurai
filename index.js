@@ -30,6 +30,8 @@ function startGame() {
 function turnClick(square){
 	console.log(square.target.id);
 	turn(square.target.id, humanPlayer);
+
+	if(!checkTie()) turn(besSpot(),aiPlayer);
 }
 
 function turn(squareId, player){
