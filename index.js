@@ -81,6 +81,8 @@ function checkTie(){
 	if(emptySquares().lenght == 0){
 		for (var i = 0; i < cells.length; i++) {
 			cells[i].style.backgroundColor = "green";
+			cells[i].removeEventListener('click',turnClick, false);
 		}
+		declareWinner("Tie Game");
 	}
 }
