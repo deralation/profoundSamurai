@@ -29,9 +29,10 @@ function startGame() {
 
 function turnClick(square){
 	console.log(square.target.id);
-	turn(square.target.id, humanPlayer);
-
-	if(!checkTie()) turn(besSpot(),aiPlayer);
+	if(typeof originalBoard[square.target.id]=="name"){
+		turn(square.target.id, humanPlayer);
+		if(!checkTie()) turn(besSpot(),aiPlayer);	
+	}
 }
 
 function turn(squareId, player){
@@ -68,4 +69,18 @@ function gameOver(gameWon){
 	}
 }
 
+function emptySquares(){
+	return originalBoard.filter(s => typeof s == "number");
+}
 
+function bestSpot() {
+	return emptySquares()[0];	
+}
+
+function checkTie(){
+	if(emptySquares().lenght == 0){
+		for (var i = 0; i < cells.length; i++) {
+			cells[i].style.backgroundColor = "green";
+		}
+	}
+}
