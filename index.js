@@ -1,4 +1,4 @@
-let originalBoard;
+var originalBoard;
 const humanPlayer = 'O';
 const computerPlayer = 'X';
 const winningCombination = [
@@ -29,9 +29,12 @@ function startGame() {
 
 function turnClick(square){
 	console.log(square.target.id);
-	if(typeof originalBoard[square.target.id]=="name"){
+
+	console.log(originalBoard[square.target.id]);
+
+	if(typeof originalBoard[square.target.id]=="number"){
 		turn(square.target.id, humanPlayer);
-		if(!checkTie()) turn(besSpot(),aiPlayer);	
+		if(!checkTie()) turn(bestSpot(),computerPlayer);	
 	}
 }
 
@@ -40,7 +43,7 @@ function turn(squareId, player){
 	originalBoard[squareId] = player;
 	document.getElementById(squareId).innerText = player;
 	let gameWon = checkWin(originalBoard, player);
-
+	console.log(gameWon);
 	if(gameWon) gameOver(gameWon);
 }
 
@@ -67,6 +70,13 @@ function gameOver(gameWon){
 	for (var i = 0; i < cells.length; i++) {
 		cells[i].removeEventListener('click',turnClick, false);
 	}
+
+	declareWinner(gameWon.player == humanPlayer ? "You win!":"You lose");
+}
+
+function declareWinner(who){
+	document.querySelector(".endGame").style.display = "block";
+	document.querySelector(".endGame .text").innerText = who;
 }
 
 function emptySquares(){
@@ -74,6 +84,7 @@ function emptySquares(){
 }
 
 function bestSpot() {
+	console.log(emptySquares()[0]);
 	return emptySquares()[0];	
 }
 
@@ -84,5 +95,7 @@ function checkTie(){
 			cells[i].removeEventListener('click',turnClick, false);
 		}
 		declareWinner("Tie Game");
+		return true;
 	}
+	return false;
 }
